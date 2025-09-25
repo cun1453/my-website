@@ -1,0 +1,49 @@
+{
+    "urunler": [
+        {
+            "id": 1,
+            "title": "40x40 Kanal 10 Sigma Profil",
+            "content": "40x40 mm ölçülerinde, kanal 10 tipi alüminyum sigma profil. Endüstriyel uygulamalar için ideal.",
+            "url": "40x40-kanal-10-sigma-profil.html",
+            "category": "Sigma Profil",
+            "image": "images/40x40-kanal-10.jpg",
+            "tags": ["40x40", "sigma", "profil", "kanal10", "aluminyum", "endüstriyel"]
+        },
+        {
+            "id": 2,
+            "title": "40x40 Kanal 8 Sigma Profil",
+            "content": "40x40 mm ölçülerinde, kanal 8 tipi alüminyum sigma profil. Hafif uygulamalar için uygun.",
+            "url": "40x40-kanal-8-sigma-profil.html",
+            "category": "Sigma Profil",
+            "image": "images/40x40-kanal-8.jpg",
+            "tags": ["40x40", "sigma", "profil", "kanal8", "aluminyum", "hafif"]
+        },
+        {
+            "id": 3,
+            "title": "20x20 Sigma Profil",
+            "content": "20x20 mm ölçülerinde standart sigma profil. Küçük projeler için ideal.",
+            "url": "20x20-sigma-profil.html",
+            "category": "Sigma Profil",
+            "image": "images/20x20-sigma.jpg",
+            "tags": ["20x20", "sigma", "profil", "küçük", "aluminyum"]
+        },
+        {
+            "id": 4,
+            "title": "Bantlı Konveyör Sistemi",
+            "content": "Paketleme ve taşıma hatları için bantlı konveyör sistemleri.",
+            "url": "konveyor-bantli.html",
+            "category": "Konveyör",
+            "image": "images/bantli-konveyor.jpg",
+            "tags": ["bantlı", "konveyor", "taşıma", "sistem", "paketleme"]
+        },
+        {
+            "id": 5,
+            "title": "Zincirli Konveyör",
+            "content": "Ağır yük taşıma için zincirli konveyör sistemleri.",
+            "url": "konveyor-zincirli.html",
+            "category": "Konveyör",
+            "image": "images/zincirli-konveyor.jpg",
+            "tags": ["zincirli", "konveyor", "ağır", "yük", "taşıma"]
+        }
+    ]
+}

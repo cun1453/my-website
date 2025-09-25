@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Sonuçları - Intendüstri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+        }
+        header {
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        header img {
+            max-width: 200px;
+        }
+        /* X butonu */
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 60vh;
+        }
+        
+        /* Arama sonuçları için özel stiller - DÜZENLENMİŞ */
+        .search-results-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .search-info {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .search-info h1 {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .search-info p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin: 0;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .product-card-small {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        .product-card-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .product-image-small {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        
+        .product-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .product-card-small:hover .product-image-small img {
+            transform: scale(1.03);
+        }
+        
+        .product-info-small {
+            padding: 15px;
+        }
+        
+        .product-title-small {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.3;
+            height: 36px;
+            overflow: hidden;
+            color: #2c3e50;
+        }
+        
+        .product-price-small {
+            font-size: 15px;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 6px;
+        }
+        
+        .product-category-small {
+            font-size: 11px;
+            color: #7f8c8d;
+            background: #f8f9fa;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 1px solid #e9ecef;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .no-results h3 {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        .no-results p {
+            color: #95a5a6;
+            font-size: 14px;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            color: #495057;
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .filter-btn:hover {
+            background: #e9ecef;
+        }
+        
+        .filter-btn.active:hover {
+            background: #2980b9;
+            border-color: #2980b9;
+        }
+
+        /* Hamburger menü */
+        .hamburger-btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #3a3939;
+            z-index: 1000;
+        }
+
+        /* Sidebar menü */
+        .sidebar {
+            width: 200px;
+            background: #f8f9fa;
+            padding: 15px 10px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            border-radius: 0 12px 12px 0;
+            margin-right: 20px;
+            height: fit-content;
+            position: relative;
+            transform: none;
+            max-height: none;
+            opacity: 1;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            padding: 10px 12px;
+            font-size: 16px;
+            font-weight: 600;
+            background: #e6f2ff;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0 0 0;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            color: #6c757d;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 14px;
+            background: transparent;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .sidebar-menu a::after {
+            content: '›';
+            font-size: 16px;
+            color: #adb5bd;
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+
+        /* Masaüstü popup sidebar (daraltıldı) */
+        @media (min-width: 901px) {
+            .hamburger-btn {
+                display: block;
+            }
+            .sidebar {
+                display: none;
+                width: 30%;
+                max-width: 290px;
+                padding: 18px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 999;
+                box-shadow: 0 5px 30px rgba(0,0,0,0.25);
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.4s ease-out, opacity 0.3s ease;
+                opacity: 0;
+                border-radius: 12px;
+                background: #f8f9fa;
+            }
+            .sidebar.active {
+                display: block;
+                max-height: 600px;
+                opacity: 1;
+            }
+            .overlay.active {
+                display: block;
+            }
+            .sidebar-menu a::after {
+                content: none;
+            }
+        }
+
+        /* Mobil */
+        @media (max-width: 900px) {
+            .hamburger-btn {
+                display: block;
+            }
+            .sidebar {
+                display: none;
+                width: 80%;
+                max-width: 300px;
+                border-radius: 12px;
+                margin-right: 0;
+                padding: 15px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 999;
+                box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.4s ease-out, opacity 0.3s ease;
+                opacity: 0;
+            }
+            .sidebar.active {
+                display: block;
+                max-height: 400px;
+                opacity: 1;
+            }
+            .overlay.active {
+                display: block;
+            }
+            .sidebar-menu a::after {
+                content: none;
+            }
+            .sidebar-menu a {
+                padding: 12px 15px;
+                font-size: 15px;
+                justify-content: center;
+            }
+            .sidebar h3 {
+                text-align: center;
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            .product-image-small {
+                height: 120px;
+            }
+            
+            .product-info-small {
+                padding: 10px;
+            }
+            
+            .product-title-small {
+                font-size: 12px;
+                height: 32px;
+            }
+            
+            .product-price-small {
+                font-size: 13px;
+            }
+        }
+
+        /* Footer - Hakkımızda.html'den alınan stiller */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 50px 0 20px;
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-col ul li a:hover {
+            color: #3498db;
+        }
+
+        .footer-logo-link {
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .footer-logo {
+            max-width: 220px;
+            height: auto;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            font-size: 14px;
+            color: #bdc3c7;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+
+        /* Mobil için footer düzenlemeleri */
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: center;
+            }
+            
+            .footer-col {
+                align-items: center;
+            }
+            
+            .footer-logo {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<header>
+    <button class="hamburger-btn">☰</button>
+    <img src="images/beyaz-logo-xxx.png" alt="Intendüstri Logo">
+    <a href="index.html" class="close-btn">×</a>
+</header>
+
+<div class="sidebar">
+    <h3>Sigma Profil Kategorileri</h3>
+    <ul class="sidebar-menu">
+        <li><a href="baglanti-ekipmanlari.html">Bağlantı Ekipmanları</a></li>
+        <li><a href="baglanti-aksesuar.html">Bağlantı Aksesuarları</a></li>
+        <li><a href="sigma-profil-yapilar.html">Sigma Profil Yapılar</a></li>
+    </ul>
+</div>
+
+<main>
+    <div class="search-results-container">
+        <div class="search-info">
+            <h1 id="search-term-display">Arama Sonuçları</h1>
+            <p id="results-count">0 ürün bulundu</p>
+        </div>
+        
+        <div class="filter-buttons" id="filter-buttons">
+            <!-- Filtre butonları burada oluşturulacak -->
+        </div>
+        
+        <div class="products-grid" id="products-grid">
+            <!-- Ürünler burada gösterilecek -->
+        </div>
+    </div>
+</main>
+
+<!-- Footer - Hakkımızda.html'den alınan footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="images/beyaz-logo-xxx-2.png" alt="International Endüstri Logo" class="footer-logo">
+                </a>
+                <p>Endüstriyel çözümler ve yenilikçi teknolojilerle iş süreçlerinizi dönüştürüyoruz.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Hizmetlerimiz</h3>
+                <ul>
+                    <li><a href="#">Mekanik Tasarım</a></li>
+                    <li><a href="#">Otomasyon Sistemleri</a></li>
+                    <li><a href="#">Endüstriyel Yazılım</a></li>
+                    <li><a href="#">Danışmanlık</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>İletişim</h3>
+                <ul>
+                    <li><a href="mailto:info@intendustri.com"><i class="fas fa-envelope"></i> info@intendustri.com</a></li>
+                    <li><a href="tel:+908502201016"><i class="fas fa-phone"></i> +90 850 220 10 16</a></li>
+                    <li><a href="iletisim.html"><i class="fas fa-form"></i> İletişim Formu</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Takip Edin</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright bölümü -->
+        <div class="footer-bottom">
+            &copy; 2023 International Endustri. Tüm hakları saklıdır.
+        </div>
+    </div>
+</footer>
+
+<script>
+// Hamburger menü işlevselliği
+document.querySelector('.hamburger-btn').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    
+    if (sidebar.classList.contains('active')) {
+        sidebar.style.maxHeight = '0';
+        sidebar.style.opacity = '0';
+        setTimeout(() => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }, 400);
+    } else {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
+            sidebar.style.opacity = '1';
+        }, 10);
+    }
+});
+
+document.querySelector('.overlay').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.style.maxHeight = '0';
+    sidebar.style.opacity = '0';
+    setTimeout(() => {
+        sidebar.classList.remove('active');
+        document.querySelector('.overlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }, 400);
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar.classList.contains('active')) {
+            sidebar.style.maxHeight = '0';
+            sidebar.style.opacity = '0';
+            setTimeout(() => {
+                sidebar.classList.remove('active');
+                document.querySelector('.overlay').classList.remove('active');
+                document.body.style.overflow = '';
+            }, 400);
+        }
+    }
+});
+
+// URL'den arama terimini al
+const urlParams = new URLSearchParams(window.location.search);
+const searchTerm = urlParams.get('q') || '';
+
+// Ürün veritabanı
+const productDatabase = [
+    {
+        title: "40x40 Kanal 10 Sigma Profil",
+        content: "40x40 mm ölçülerinde, kanal 10 tipi alüminyum sigma profil.",
+        url: "40x40-kanal-10-sigma-profil.html",
+        category: "Sigma Profil",
+        price: "₺150,00",
+        image: "images/40x40-kanal-10.jpg"
+    },
+    {
+        title: "20x20 Kanal 8 Sigma Profil",
+        content: "20x20 mm ölçülerinde, kanal 8 tipi alüminyum sigma profil.",
+        url: "20x20-kanal-8-sigma-profil.html",
+        category: "Sigma Profil",
+        price: "₺85,00",
+        image: "images/20x20-kanal-8.jpg"
+    },
+    {
+        title: "Bağlantı Köşebenti",
+        content: "Sigma profiller için özel tasarlanmış bağlantı köşebenti.",
+        url: "baglanti-kosebenti.html",
+        category: "Bağlantı Ekipmanları",
+        price: "₺12,50",
+        image: "images/baglanti-kosebenti.jpg"
+    },
+    {
+        title: "T-Slot Somun Seti",
+        content: "Sigma profil kanalları için T-slot somun seti.",
+        url: "t-slot-somun-seti.html",
+        category: "Bağlantı Aksesuarları",
+        price: "₺45,00",
+        image: "images/t-slot-somun.jpg"
+    },
+    {
+        title: "Endüstriyel Çerçeve Seti",
+        content: "Hazır endüstriyel çerçeve seti, kolay montaj.",
+        url: "endustriyel-cerceve-seti.html",
+        category: "Sigma Profil Yapılar",
+        price: "₺420,00",
+        image: "images/endustriyel-cerceve.jpg"
+    },
+    {
+        title: "80x80 Kanal 12 Sigma Profil",
+        content: "80x80 mm ölçülerinde, kanal 12 tipi alüminyum sigma profil.",
+        url: "80x80-kanal-12-sigma-profil.html",
+        category: "Sigma Profil",
+        price: "₺280,00",
+        image: "images/80x80-kanal-12.jpg"
+    }
+];
+
+// Arama işlemi
+function performSearch() {
+    if (!searchTerm) {
+        showNoResults();
+        return;
+    }
+    
+    const results = productDatabase.filter(product => 
+        product.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
+    displayResults(results);
+    updateFilterButtons(results);
+}
+
+function displayResults(results) {
+    document.getElementById('search-term-display').textContent = `"${searchTerm}" Arama Sonuçları`;
+    document.getElementById('results-count').textContent = `${results.length} ürün bulundu`;
+    
+    const grid = document.getElementById('products-grid');
+    
+    if (results.length === 0) {
+        showNoResults();
+        return;
+    }
+    
+    grid.innerHTML = results.map(product => `
+        <a href="${product.url}" class="product-card-small">
+            <div class="product-image-small">
+                <img src="${product.image}" alt="${product.title}" onerror="this.src='images/placeholder.jpg'">
+            </div>
+            <div class="product-info-small">
+                <div class="product-title-small">${product.title}</div>
+                <div class="product-price-small">${product.price}</div>
+                <span class="product-category-small">${product.category}</span>
+            </div>
+        </a>
+    `).join('');
+}
+
+function updateFilterButtons(results) {
+    const categories = [...new Set(results.map(product => product.category))];
+    const filterContainer = document.getElementById('filter-buttons');
+    
+    if (categories.length > 1) {
+        filterContainer.innerHTML = `
+            <button class="filter-btn active" data-category="all">Tümü (${results.length})</button>
+            ${categories.map(category => {
+                const count = results.filter(p => p.category === category).length;
+                return `<button class="filter-btn" data-category="${category}">${category} (${count})</button>`;
+            }).join('')}
+        `;
+        
+        // Filtre butonlarına tıklama olayı ekle
+        filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                filterResults(results, category);
+            });
+        });
+    } else {
+        filterContainer.innerHTML = '';
+    }
+}
+
+function filterResults(results, category) {
+    const filtered = category === 'all' ? results : results.filter(product => product.category === category);
+    
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = filtered.map(product => `
+        <a href="${product.url}" class="product-card-small">
+            <div class="product-image-small">
+                <img src="${product.image}" alt="${product.title}" onerror="this.src='images/placeholder.jpg'">
+            </div>
+            <div class="product-info-small">
+                <div class="product-title-small">${product.title}</div>
+                <div class="product-price-small">${product.price}</div>
+                <span class="product-category-small">${product.category}</span>
+            </div>
+        </a>
+    `).join('');
+}
+
+function showNoResults() {
+    document.getElementById('products-grid').innerHTML = `
+        <div class="no-results">
+            <h3>"${searchTerm}" için ürün bulunamadı</h3>
+            <p>Lütfen farklı bir anahtar kelime deneyin veya tüm kategorilerde arama yapın.</p>
+        </div>
+    `;
+}
+
+// Sayfa yüklendiğinde arama yap
+document.addEventListener('DOMContentLoaded', performSearch);
+</script>
+
+</body>
+</html>

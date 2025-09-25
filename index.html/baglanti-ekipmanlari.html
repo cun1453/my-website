@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigma Profiller</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    flex: 1;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+}
+
+header {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+header img {
+    max-width: 200px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #3a3939;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #e74c3c;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+
+/* Section title */
+.section-title {
+    text-align:center;
+    background:#e6f2ff;
+    padding:10px 0;          /* üst-alt dar boşluk */
+    border-bottom:1px solid #ddd;
+    margin:0 auto 20px auto; /* ortalama + altta biraz boşluk */
+    width:100%;              /* tüm sayfa genişliği */
+}
+.section-title h2 {
+    margin:0;
+    font-size:26px;
+    font-weight:bold;
+    color:#333;
+}
+.section-title p {
+    margin-top:8px;
+    color:#666;
+}
+.product-card {
+    width: 250px;
+    background: #dcdde0;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.product-card img {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+}
+.product-card h3 {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #2c3e50;
+}
+/* Footer */
+footer {
+    background:#fff;
+    color:#111;
+    text-align:center;
+    padding:12px 0;
+    font-size:13px;
+    font-weight:bold;
+    border-top:1px solid #ddd;
+    box-shadow:0 -2px 5px rgba(0,0,0,0.05);
+    margin-top: auto; /* footer'ı en alta iter */
+}
+</style>
+</head>
+<body>
+
+<header>
+    <img src="images/beyaz-logo-xxx.png" alt="Intendüstri Logo">
+    <a href="index.html" class="close-btn">×</a>
+</header>
+
+<section class="section-title">
+    <h2>Sigma Profiller</h2>
+</section>
+
+<div class="container">
+    <div class="product-card" onclick="window.location.href='kanal6.html'">
+        <img src="images/kanal-6-sigma-profil.png" alt="Kanal 6 Sigma Profiller">
+        <h3>Kanal 6 Sigma Profiller</h3>
+    </div>
+    <div class="product-card" onclick="window.location.href='kanal8.html'">
+        <img src="images/kanal-8-profil.png" alt="Kanal 8 Sigma Profiller">
+        <h3>Kanal 8 Sigma Profiller</h3>
+    </div>
+    <div class="product-card" onclick="window.location.href='kanal10.html'">
+        <img src="images/kanal-10-profil.png" alt="Kanal 10 Sigma Profiller">
+        <h3>Kanal 10 Sigma Profiller</h3>
+    </div>
+    <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+        <img src="images/yüzey-kaplama-profili.jpeg" alt="Yüzey Kaplama Profilleri">
+        <h3>Yüzey Kaplama Profilleri</h3>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-bottom">&copy; 2023 International Endustri. Tüm hakları saklıdır.</div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanal 10 - Güncellenmiş</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    header {
+        background: #fff;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    header img { max-width: 200px; }
+
+    .close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+        font-weight: bold;
+        color: #3a3939;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .close-btn:hover { color: #e74c3c; }
+
+    .container {width: 90%; max-width:1200px; margin:auto; padding:40px 0; flex:1}
+    .section-title {text-align:center; margin-bottom:30px; background:#e6f2ff; padding:20px; border-bottom:1px solid #ddd;}
+    .section-title h2 {margin:0; font-size:26px; font-weight:bold; color:#333;}
+    .section-title p {margin-top:8px; color:#666;}
+
+    .gallery-grid {display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:30px}
+    .card {background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.1); cursor:pointer; transition: background 0.3s}
+    .card .card-img img {width:100%; display:block; transition:transform 0.3s}
+    .card:hover .card-img img {transform:scale(1.03)}
+
+    .card .card-body {
+        padding:18px;
+        text-align:center;
+        background:#fafafa;
+    }
+    .card h3 {margin:0 0 10px; color:#444;}
+    .card p {margin:0 0 12px; color:#666}
+    .card .meta {font-size:13px; color:#777}
+
+    /* Lightbox */
+    #lightbox {
+        display:none;
+        position:fixed;
+        z-index:1000;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.6);
+        align-items:center;
+        justify-content:center;
+    }
+    #lightbox .lightbox-inner {background:#fff; padding:18px; border-radius:8px; max-width:95%; max-height:95%; box-shadow:0 10px 30px rgba(0,0,0,0.2); position:relative}
+    #lightbox img {max-width:100%; max-height:70vh; display:block; border-radius:6px}
+    #lightbox .close-btn-lightbox {position:absolute; top:-12px; right:-12px; background:#fff; border-radius:50%; padding:6px 10px; font-size:26px; box-shadow:0 2px 10px rgba(0,0,0,0.2); cursor:pointer}
+
+    footer {
+    background:#fff;
+    color:#111;
+    text-align:center;
+    padding:12px 0;
+    font-size:13px;
+    font-weight:bold;
+    border-top:1px solid #ddd;
+    box-shadow:0 -2px 5px rgba(0,0,0,0.05);
+    margin-top: auto; /* footer'ı en alta iter */
+    }
+
+    @media (max-width:600px){ .container{padding:20px 0} }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="images/beyaz-logo-xxx.png" alt="Intendüstri Logo">
+    <a href="sigma-profil.html" class="close-btn">×</a>
+</header>
+
+<section class="container">
+    <div class="section-title">
+        <h2>Kanal 10 Sigma Profiller</h2>
+    </div>
+
+    <div class="gallery-grid">
+        <div class="card" onclick="openLightbox('images/kanal10-1.png')">
+            <div class="card-img"><img src="images/kanal10-1.png" alt="Kanal 10 Görsel 1"></div>
+            <div class="card-body">
+                <h3>20x20 Sigma Profil - Kanal 10</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="openLightbox('images/kanal10-2.png')">
+            <div class="card-img"><img src="images/kanal10-2.png" alt="Kanal 10 Görsel 2"></div>
+            <div class="card-body">
+                <h3>20x20 Radiuslu Sigma Profil - Kanal 10</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="openLightbox('images/kanal10-3.png')">
+            <div class="card-img"><img src="images/kanal10-3.png" alt="Kanal 10 Görsel 3"></div>
+            <div class="card-body">
+                <h3>20x40 Sigma Profil - Kanal 10</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="openLightbox('images/kanal10-4.png')">
+            <div class="card-img"><img src="images/kanal10-4.png" alt="Kanal 10 Görsel 4"></div>
+            <div class="card-body">
+                <h3>25x25 Sigma Profil - Kanal 10</h3>
+            </div>
+        </div>
+
+        <div class="card" onclick="openLightbox('images/kanal10-5.png')">
+    <div class="card-img"><img src="images/kanal10-5.png" alt="Kanal 10 Görsel 5"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 5</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-5.png')">
+    <div class="card-img"><img src="images/kanal10-5.png" alt="Kanal 10 Görsel 5"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 6</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-7.png')">
+    <div class="card-img"><img src="images/kanal10-7.png" alt="Kanal 10 Görsel 7"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 7</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-8.png')">
+    <div class="card-img"><img src="images/kanal10-8.png" alt="Kanal 10 Görsel 8"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 8</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-9.png')">
+    <div class="card-img"><img src="images/kanal10-9.png" alt="Kanal 10 Görsel 9"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 9</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-10.png')">
+    <div class="card-img"><img src="images/kanal10-10.png" alt="Kanal 10 Görsel 10"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 10</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-11.png')">
+    <div class="card-img"><img src="images/kanal10-11.png" alt="Kanal 10 Görsel 11"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 11</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-12.png')">
+    <div class="card-img"><img src="images/kanal10-12.png" alt="Kanal 10 Görsel 12"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 12</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-13.png')">
+    <div class="card-img"><img src="images/kanal10-13.png" alt="Kanal 10 Görsel 13"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 13</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-14.png')">
+    <div class="card-img"><img src="images/kanal10-14.png" alt="Kanal 10 Görsel 14"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 14</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-15.png')">
+    <div class="card-img"><img src="images/kanal10-15.png" alt="Kanal 10 Görsel 15"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 15</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-16.png')">
+    <div class="card-img"><img src="images/kanal10-16.png" alt="Kanal 10 Görsel 16"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 16</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-17.png')">
+    <div class="card-img"><img src="images/kanal10-17.png" alt="Kanal 10 Görsel 17"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 17</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-18.png" alt="Kanal 10 Görsel 18"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 18</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-17.png')">
+    <div class="card-img"><img src="images/kanal10-19.png" alt="Kanal 10 Görsel 19"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 19</h3>
+    </div>
+</div>
+
+<div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-20.png" alt="Kanal 10 Görsel 20"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 20</h3>
+    </div>
+ </div>
+ 
+<div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-21.png" alt="Kanal 10 Görsel 21"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 21</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-22.png" alt="Kanal 10 Görsel 22"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 22</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-23.png" alt="Kanal 10 Görsel 23"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 23</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-24.png" alt="Kanal 10 Görsel 24"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 24</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-25.png" alt="Kanal 10 Görsel 25"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 25</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-26.png" alt="Kanal 10 Görsel 26"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 26</h3>
+    </div>
+ </div>
+
+ <div class="card" onclick="openLightbox('images/kanal10-18.png')">
+    <div class="card-img"><img src="images/kanal10-27.png" alt="Kanal 10 Görsel 27"></div>
+    <div class="card-body">
+        <h3>Kanal 10 Görsel 27</h3>
+    </div>
+ </div>
+ 
+</div> 
+</section>
+
+<div id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+        <button class="close-btn-lightbox" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="Büyük Görsel">
+    </div>
+</div>
+
+<footer>
+    <div class="footer-bottom">&copy; 2023 International Endustri. Tüm hakları saklıdır.</div>
+</footer>
+
+<script>
+function openLightbox(src) {
+    var img = document.getElementById('lightbox-img');
+    img.src = src;
+    document.getElementById('lightbox').style.display = 'flex';
+}
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konveyör Çeşitleri</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.container {
+    flex: 1;
+    display: flex;
+}
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    position: relative;
+}
+
+header {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 100;
+}
+
+header img {
+    max-width: 200px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #3a3939;
+    text-decoration: none;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #e74c3c;
+}
+
+/* Sidebar menü */
+.sidebar {
+    width: 200px;
+    background: #f8f9fa;
+    padding: 15px 10px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    border-radius: 0 12px 12px 0;
+    margin-right: 20px;
+    height: fit-content;
+    position: relative;
+    transform: none;
+    max-height: none;
+    opacity: 1;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    padding: 10px 12px;
+    font-size: 16px;
+    font-weight: 600;
+    background: #e6f2ff;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 5px;
+}
+
+.sidebar-menu a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    color: #6c757d;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 14px;
+    background: transparent;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.sidebar-menu a::after {
+    content: '›';
+    font-size: 16px;
+    color: #adb5bd;
+}
+
+/* Hamburger menü */
+.hamburger-btn {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #3a3939;
+    z-index: 1000;
+}
+
+/* Overlay */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+}
+
+/* Ana içerik */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.section-title {
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff, #93a7bd, #e6f2ff);
+    padding: 20px 0;
+    margin: 0 auto 30px auto;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.section-title h2 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 800;
+    color: rgb(41, 37, 66);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-title p {
+    margin-top: 8px;
+    color: rgba(9, 23, 60, 0.9);
+    font-size: 16px;
+}
+
+.product-card {
+    width: 250px;
+    background: #dcdde0;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.product-card h3 {
+    margin: 15px 0;
+    font-size: 16px;
+    color: #2c3e50;
+    padding: 0 10px;
+}
+
+/* Sigma açıklama */
+.sigma-explanation {
+    background: #fff;
+    padding: 30px;
+    margin: 40px 0 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.sigma-explanation h2 {
+    color: #2c3e50;
+    border-bottom: 2px solid #e6f2ff;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.sigma-explanation p {
+    line-height: 1.6;
+    color: #555;
+}
+
+.sigma-explanation ul {
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.sigma-explanation li {
+    margin-bottom: 8px;
+}
+
+.kanal-tipleri {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.kanal-tipleri th {
+    background-color: #e6f2ff;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.kanal-tipleri td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.kanal-tipleri tr:last-child td {
+    border-bottom: none;
+}
+
+.kanal-tipleri tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+.kanal-tipleri tr:hover {
+    background-color: #f1f8ff;
+}
+
+/* Footer - Index.html'den alınan stiller - DÜZELTİLMİŞ */
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 50px 0 20px;
+    width: 100%;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-col h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #3498db;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    color: #bdc3c7;
+    text-decoration: none;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-col ul li a:hover {
+    color: #3498db;
+}
+
+.footer-logo-link {
+    margin-bottom: 15px;
+    display: block;
+}
+
+.footer-logo {
+    max-width: 220px;
+    height: auto;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 14px;
+    color: #bdc3c7;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+}
+
+/* Masaüstü popup sidebar (daraltıldı) */
+@media (min-width: 901px) {
+    .hamburger-btn {
+        display: block;
+    }
+    .sidebar {
+        display: none;
+        width: 30%;        /* daha dar */
+        max-width: 290px;  /* en fazla 290px */
+        padding: 18px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        box-shadow: 0 5px 30px rgba(0,0,0,0.25);
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-out, opacity 0.3s ease;
+        opacity: 0;
+        border-radius: 12px;
+        background: #f8f9fa;
+    }
+    .sidebar.active {
+        display: block;
+        max-height: 600px;
+        opacity: 1;
+    }
+    .overlay.active {
+        display: block;
+    }
+    .sidebar-menu a::after {
+        content: none;
+    }
+    .container {
+        gap: 0;
+    }
+}
+
+/* Mobil */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+    .hamburger-btn {
+        display: block;
+    }
+    .sidebar {
+        display: none;
+        width: 80%;
+        max-width: 300px;
+        border-radius: 12px;
+        margin-right: 0;
+        padding: 15px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 999;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-out, opacity 0.3s ease;
+        opacity: 0;
+    }
+    .sidebar.active {
+        display: block;
+        max-height: 400px;
+        opacity: 1;
+    }
+    .overlay.active {
+        display: block;
+    }
+    .sidebar-menu a::after {
+        content: none;
+    }
+    .sidebar-menu a {
+        padding: 12px 15px;
+        font-size: 15px;
+        justify-content: center;
+    }
+    .sidebar h3 {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    .kanal-tipleri {
+        display: block;
+        overflow-x: auto;
+    }
+    .section-title h2 {
+        font-size: 26px;
+    }
+    .section-title p {
+        font-size: 14px;
+    }
+    
+    /* Mobil için footer düzenlemeleri */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .footer-col {
+        align-items: center;
+    }
+    
+    .footer-logo {
+        margin: 0 auto;
+    }
+}
+
+/* Mobilde product card ikili grid */
+@media (max-width: 768px) {
+    .product-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .product-card {
+        width: 100% !important;
+        margin: 0;
+    }
+    .product-card img {
+        height: 160px;
+    }
+    .product-card h3 {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+}
+
+/* Çok küçük ekranlarda tek sütun */
+@media (max-width: 400px) {
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="overlay"></div>
+
+<header>
+    <button class="hamburger-btn">☰</button>
+    <img src="images/beyaz-logo-xxx.png" alt="Intendüstri Logo">
+    <a href="index.html" class="close-btn">×</a>
+</header>
+
+<div class="container">
+    <div class="sidebar">
+        <h3>Sigma Profil Kategorileri</h3>
+        <ul class="sidebar-menu">
+            <li><a href="baglanti-ekipmanlari.html">Bağlantı Ekipmanları</a></li>
+            <li><a href="baglanti-aksesuar.html">Bağlantı Aksesuarları</a></li>
+            <li><a href="sigma-profil-yapilar.html">Sigma Profil Yapılar</a></li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <section class="section-title">
+            <h2>Konveyör Çeşitleri</h2>
+            <p>Dayanıklı, esnek ve estetik yapılar için ideal çözüm</p>
+        </section>
+
+        <div class="product-container">
+            <div class="product-card" onclick="window.location.href='kanal6.html'">
+                <img src="images/kanal-6-sigma-profil.png" alt="PVC Bantlı Konveyör">
+                <h3>PVC Bantlı Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='kanal8.html'">
+                <img src="images/kanal-8-profil.png" alt="Elevatör Konveyör">
+                <h3>Elevatör Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='kanal10.html'">
+                <img src="images/kanal-10-profil.png" alt="Montaj Hattı Konveyörü">
+                <h3>Montaj Hattı Konveyörü</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Dönüşlü ve Açılı Konveyör">
+                <h3>Dönüşlü ve Açılı Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Makina Besleme Konveyörü">
+                <h3>Makina Besleme Konveyörü</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Plastik Enjeksiyon Konveyörü">
+                <h3>Plastik Enjeksiyon Konveyörü</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Minyatür Konveyör">
+                <h3>Minyatür Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="L-Z Tipi konveyör">
+                <h3>L-Z Tipi konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Paslanmaz Çelik Konveyör">
+                <h3>Paslanmaz Çelik Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Bunkerli Konveyör">
+                <h3>Bunkerli Konveyör</h3>
+            </div>
+             <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Modüler Bantlı Konveyör">
+                <h3>Modüler Bantlı Konveyör</h3>
+            </div>
+            <div class="product-card" onclick="window.location.href='yuzeykaplama.html'">
+                <img src="images/yüzey-kaplama-profili.jpeg" alt="Rulolu Aktarma Konveyörü">
+                <h3>Rulolu Aktarma Konveyörü</h3>
+            </div>
+        </div>
+        
+        <section class="sigma-explanation">
+            <h2>Konveyör Nedir?</h2>
+            <p><strong>Konveyör</strong>, ürünlerin, malzemelerin veya parçaların bir noktadan başka bir noktaya hızlı, güvenli ve verimli şekilde taşınmasını sağlayan otomatik taşıma sistemidir. Üretim hatlarından depolara, lojistik merkezlerinden gıda tesislerine kadar pek çok alanda kullanılan konveyör sistemleri, iş gücünü azaltarak verimliliği artırır ve taşıma süreçlerini otomatikleştirir.
+
+Modern konveyör sistemleri; bantlı, modüler, elevatörlü, paslanmaz çelik, PVC, L-Z tipi, dönüşlü gibi farklı tasarımlara sahip olabilir. Her biri, kullanım alanına ve taşınacak ürünün özelliklerine göre özel olarak üretilir.</p>
+
+            <h3>Konveyör Sistemlerinin Avantajları</h3>
+            <ul>
+                <li><strong>Zaman Tasarrufu</strong>: Manuel taşıma yöntemlerine göre çok daha hızlıdır.</li>
+                <li><strong>Verimlilik</strong>:Sürekli ve kesintisiz taşıma ile üretim hızını artırır.</li>
+                <li><strong>İş Güvenliği</strong>:Ağır yüklerin taşınmasında çalışan riskini azaltır.</li>
+                <li><strong>Esnek Tasarım</strong>:Dar alanlar, rampalar, katlar arası taşıma gibi özel ihtiyaçlara uyarlanabilir.</li>
+                <li><strong>Hijyen</strong>: Gıda ve sağlık sektörlerinde yüksek temizlik standartlarına uygundur.</li>
+            </ul>
+            
+            <h3>Konveyör Sistemlerinin Kullanım Alanları</h3>
+            <p> Konveyör sistemleri, günümüzde neredeyse tüm sektörlerde ve farklı ölçeklerdeki işletmelerde kullanılmaktadır. İster büyük bir fabrika, ister küçük bir imalathane olsun; doğru konveyör çözümü ile taşıma süreçleri hızlanır, iş gücü azalır ve verimlilik artar.</p>
+            
+            <ul>
+                <li><strong>Üretim Tesisleri, Fabrika ve İmalathaneler</strong>: Montaj hatlarında parçaların taşınması.</li>
+                <li><strong>Depolama ve Lojistik</strong>: Paketlerin, kutuların ve paletlerin taşınması.</li>
+                <li><strong>Gıda, Kimya ve İlaç Endüstrisi</strong>: Güvenli, kontrollü ve sızdırmaz taşıma çözümleri ile üretim ve paketleme süreçlerinin desteklenmesi.</li>
+                <li><strong>Otomotiv ve Yedek Parça</strong>: Ağır yüklerin otomatik taşınması, montaj hatlarının beslenmesi ve üretim süreçlerinin hızlandırılması.</li>
+                <li><strong>Perakende</strong>: Kumaş, aksesuar ve hazır giyim ürünlerinin üretim hattında ve depolama alanlarında taşınması.</li>
+            </ul>
+
+            <p>Sonuç olarak, konveyör sistemleri; üretim, depolama ve taşıma süreçlerini hızlandıran, iş gücünü azaltan ve işletmelere maliyet avantajı sağlayan vazgeçilmez bir teknolojidir. Doğru konveyör seçimi, hem operasyonel verimliliği hem de iş güvenliğini en üst seviyeye çıkarır.</p>
+        </section>
+    </div>
+</div>
+
+<!-- Footer - Index.html'den alınan footer - DÜZELTİLMİŞ -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="index.html" class="footer-logo-link">
+                    <img src="images/beyaz-logo-xxx-2.png" alt="International Endüstri Logo" class="footer-logo">
+                </a>
+                <p>Endüstriyel çözümler ve yenilikçi teknolojilerle iş süreçlerinizi dönüştürüyoruz.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Hizmetlerimiz</h3>
+                <ul>
+                    <li><a href="#">Mekanik Tasarım</a></li>
+                    <li><a href="#">Otomasyon Sistemleri</a></li>
+                    <li><a href="#">Endüstriyel Yazılım</a></li>
+                    <li><a href="#">Danışmanlık</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>İletişim</h3>
+                <ul>
+                    <li><a href="mailto:info@intendustri.com"><i class="fas fa-envelope"></i> info@intendustri.com</a></li>
+                    <li><a href="tel:+908502201016"><i class="fas fa-phone"></i> +90 850 220 10 16</a></li>
+                    <li><a href="iletisim.html"><i class="fas fa-form"></i> İletişim Formu</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Takip Edin</h3>
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Copyright bölümü -->
+        <div class="footer-bottom">
+            &copy; 2023 International Endustri. Tüm hakları saklıdır.
+        </div>
+    </div>
+</footer>
+
+<script>
+document.querySelector('.hamburger-btn').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.overlay');
+    
+    if (sidebar.classList.contains('active')) {
+        sidebar.style.maxHeight = '0';
+        sidebar.style.opacity = '0';
+        setTimeout(() => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }, 400);
+    } else {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            sidebar.style.maxHeight = sidebar.scrollHeight + 'px';
+            sidebar.style.opacity = '1';
+        }, 10);
+    }
+});
+
+document.querySelector('.overlay').addEventListener('click', function() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.style.maxHeight = '0';
+    sidebar.style.opacity = '0';
+    setTimeout(() => {
+        sidebar.classList.remove('active');
+        document.querySelector('.overlay').classList.remove('active');
+        document.body.style.overflow = '';
+    }, 400);
+});
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar.classList.contains('active')) {
+            sidebar.style.maxHeight = '0';
+            sidebar.style.opacity = '0';
+            setTimeout(() => {
+                sidebar.classList.remove('active');
+                document.querySelector('.overlay').classList.remove('active');
+                document.body.style.overflow = '';
+            }, 400);
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const currentPage = window.location.pathname.split('/').pop() || 'kanal6.html';
+    const menuItems = document.querySelectorAll('.sidebar-menu a');
+    
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === currentPage) {
+            item.classList.add('active');
+        }
+    });
+});
+</script>
+
+</body>
+</html>
